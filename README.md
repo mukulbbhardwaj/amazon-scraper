@@ -29,3 +29,9 @@ To test this application, enter the following URL in your browser:
 
 Replace [YOUR_KEYWORD] with the keyword you want to search on Amazon.
 
+## Sample Output
+
+Here's output for keyword: 'oreo'
+
+![Sample Output](https://github.com/mukulbbhardwaj/amazon-scraper/blob/main/sample_output.png)
+
