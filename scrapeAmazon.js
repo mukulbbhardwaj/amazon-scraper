@@ -2,7 +2,7 @@ const puppeteer = require("puppeteer");
 
 async function scrapeAmazon(keyword) {
   const browser = await puppeteer.launch({
-    headless: false,
+    headless: true,
   });
   const page = await browser.newPage();
 
@@ -13,7 +13,7 @@ async function scrapeAmazon(keyword) {
     nameElement: "h1 span#productTitle",
     ratingElement: ".a-icon-star",
     priceElement: ".a-offscreen",
-    descriptionElement: ".a-list-item",
+    descriptionElement: "ul.a-unordered-list.a-vertical.a-spacing-mini",
     reviewsLink: "a#acrCustomerReviewLink",
     reviewsElement: ".review-text",
   };
@@ -35,10 +35,10 @@ async function scrapeAmazon(keyword) {
     const price = await page1.$eval(selectors.priceElement, (priceElement) =>
       priceElement ? priceElement.innerText.trim() : "NA"
     );
-    const description = await page1.$$eval(
+    const description = await page1.$eval(
       selectors.descriptionElement,
-      (elements) =>
-        elements.map((element) => element.textContent.trim()).join(" ") || "N/A"
+      (descriptionElement) =>
+        descriptionElement ? descriptionElement.innerText.trim() : "NA"
     );
 
     await page1.click(selectors.reviewsLink);
